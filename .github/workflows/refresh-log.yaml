@@ -1,0 +1,22 @@
+name: "Refresh Log"
+
+on:
+  schedule:
+    - cron: "30 0 * * 0"
+  workflow_dispatch:
+
+jobs:
+  refresh-log:
+    name: Refresh log
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Refresh log
+        run: echo "$(tail -n 150 log.txt)" > log.txt
+      - name: Update log
+        run: |
+          git config --local user.email "me@dw1.io"
+          git config --local user.name "Dwi Siswanto"
+          git commit -am "refresh log :robot:"
+          git push origin ${{ github.ref }}
+        continue-on-error: true
