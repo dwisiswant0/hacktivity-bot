@@ -1,0 +1,14 @@
+{
+  "name": "hacktivity-bot",
+  "module": "index.js",
+  "type": "module",
+  "scripts": {
+    "post": "bun run index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

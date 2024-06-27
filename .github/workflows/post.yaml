@@ -1,0 +1,28 @@
+name: Post
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+env:
+  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+jobs:
+  post:
+    name: Post
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Post
+        run: bun post
+      - name: Update log
+        run: |
+          git config --local user.email "git@dw1.io"
+          git config --local user.name "Dwi Siswanto"
+          git commit -am "auto-update log :robot:"
+          git push origin ${{ github.ref }}
+        continue-on-error: true
