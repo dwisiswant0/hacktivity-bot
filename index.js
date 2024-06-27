@@ -112,6 +112,8 @@ function generate_payload(node) {
   return payload
 }
 
+w.write(log)
+
 const req = await fetch("https://hackerone.com/graphql", {
   "headers": {
     "accept": "application/json",
