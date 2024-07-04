@@ -57,6 +57,10 @@ function get_severity_icon(severity) {
     case 'Critical':
       icon = ':red_circle:'
       break;
+    default:
+      icon = '-'
+      severity = ''
+      break;
   }
 
   return `${icon} ${severity}`
