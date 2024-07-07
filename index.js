@@ -106,7 +106,7 @@ function generate_payload(node) {
         ],
         "footer": {
           "text": "dwisiswant0/hacktivity-bot",
-          "icon_url": "https://github.githubassets.com/favicons/favicon.png"
+          "icon_url": "https://github.com/github.png"
         }
       }
     ],
