@@ -2,7 +2,7 @@ name: Post
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 */3 * * *"
   workflow_dispatch:
 
 concurrency:
