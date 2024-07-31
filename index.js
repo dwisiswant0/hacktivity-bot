@@ -85,7 +85,7 @@ function generate_payload(node) {
     generate_summary(generated_content);
 
   const payload = {
-    "content": null,
+    "content": Bun.env.ROLE_ID && `<@&${Bun.env.ROLE_ID}>` || null,
     "embeds": [
       {
         "title": report.title,
