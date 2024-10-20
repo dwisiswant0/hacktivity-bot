@@ -120,17 +120,18 @@ w.write(log)
 
 const req = await fetch("https://hackerone.com/graphql", {
   "headers": {
-    "accept": "application/json",
+    "accept": "*/*",
     "cache-control": "no-cache",
     "content-type": "application/json",
+    "pragma": "no-cache",
     "x-product-area": "hacktivity",
-    "x-product-feature": "overview"
+    "x-product-feature": "overview",
+    "Referer": "https://hackerone.com/hacktivity/overview?queryString=disclosed%3Atrue&sortField=latest_disclosable_activity_at&sortDirection=DESC&pageIndex=0",
+    "Referrer-Policy": "origin-when-cross-origin"
   },
-  "referrer": "https://hackerone.com/hacktivity/overview?queryString=disclosed%3Atrue&sortField=disclosed_at&sortDirection=DESC&pageIndex=0",
-  "body": "{\"operationName\":\"CompleteHacktivitySearchQuery\",\"variables\":{\"userPrompt\":null,\"queryString\":\"disclosed:true\",\"size\":25,\"from\":0,\"sort\":{\"field\":\"disclosed_at\",\"direction\":\"DESC\"},\"product_area\":\"hacktivity\",\"product_feature\":\"overview\"},\"query\":\"query CompleteHacktivitySearchQuery($queryString: String!, $from: Int, $size: Int, $sort: SortInput!) {\\n  me {\\n    id\\n    __typename\\n  }\\n  search(\\n    index: CompleteHacktivityReportIndexService\\n    query_string: $queryString\\n    from: $from\\n    size: $size\\n    sort: $sort\\n  ) {\\n    __typename\\n    total_count\\n    nodes {\\n      __typename\\n      ... on CompleteHacktivityReportDocument {\\n        id\\n        _id\\n        reporter {\\n          id\\n          name\\n          username\\n          ...UserLinkWithMiniProfile\\n          __typename\\n        }\\n        cve_ids\\n        cwe\\n        severity_rating\\n        upvoted: upvoted_by_current_user\\n        public\\n        report {\\n          id\\n          databaseId: _id\\n          title\\n          substate\\n          url\\n          disclosed_at\\n          report_generated_content {\\n            id\\n            hacktivity_summary\\n            __typename\\n          }\\n          __typename\\n        }\\n        votes\\n        team {\\n          handle\\n          name\\n          medium_profile_picture: profile_picture(size: medium)\\n          url\\n          id\\n          currency\\n          ...TeamLinkWithMiniProfile\\n          __typename\\n        }\\n        total_awarded_amount\\n        latest_disclosable_action\\n        latest_disclosable_activity_at\\n        submitted_at\\n        disclosed\\n        has_collaboration\\n        __typename\\n      }\\n    }\\n  }\\n}\\n\\nfragment UserLinkWithMiniProfile on User {\\n  id\\n  username\\n  __typename\\n}\\n\\nfragment TeamLinkWithMiniProfile on Team {\\n  id\\n  handle\\n  name\\n  __typename\\n}\\n\"}",
-  "method": "POST",
-  "mode": "cors",
-})
+  "body": "{\"operationName\":\"HacktivitySearchQuery\",\"variables\":{\"queryString\":\"disclosed:true\",\"size\":25,\"from\":0,\"sort\":{\"field\":\"latest_disclosable_activity_at\",\"direction\":\"DESC\"},\"product_area\":\"hacktivity\",\"product_feature\":\"overview\"},\"query\":\"query HacktivitySearchQuery($queryString: String!, $from: Int, $size: Int, $sort: SortInput!) {\\n  me {\\n    id\\n    __typename\\n  }\\n  search(\\n    index: CompleteHacktivityReportIndex\\n    query_string: $queryString\\n    from: $from\\n    size: $size\\n    sort: $sort\\n  ) {\\n    __typename\\n    total_count\\n    nodes {\\n      __typename\\n      ... on HacktivityDocument {\\n        id\\n        _id\\n        reporter {\\n          id\\n          username\\n          name\\n          __typename\\n        }\\n        cve_ids\\n        cwe\\n        severity_rating\\n        upvoted: upvoted_by_current_user\\n        public\\n        report {\\n          id\\n          databaseId: _id\\n          title\\n          substate\\n          url\\n          disclosed_at\\n          report_generated_content {\\n            id\\n            hacktivity_summary\\n            __typename\\n          }\\n          __typename\\n        }\\n        votes\\n        team {\\n          id\\n          handle\\n          name\\n          medium_profile_picture: profile_picture(size: medium)\\n          url\\n          currency\\n          __typename\\n        }\\n        total_awarded_amount\\n        latest_disclosable_action\\n        latest_disclosable_activity_at\\n        submitted_at\\n        disclosed\\n        has_collaboration\\n        __typename\\n      }\\n    }\\n  }\\n}\\n\"}",
+  "method": "POST"
+});
 
 const res = await req.json()
 
