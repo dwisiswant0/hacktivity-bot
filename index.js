@@ -144,6 +144,12 @@ for (const node of res.data.search.nodes) {
     continue
   }
 
+  if (!node.public) {
+    console.log(`${id} not public, skipping...`)
+
+    continue
+  }
+
   const payload = generate_payload(node)
   const post = await fetch(Bun.env.DISCORD_WEBHOOK_URL, {
     method: 'POST',
